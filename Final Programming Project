@@ -1,0 +1,102 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
+C#, OCaml, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+import java.util.Scanner;
+
+public class StudentGradebook {
+
+    public static void main(String[] args) {
+
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("Enter number of students: ");
+        int numStudents = input.nextInt();
+
+        System.out.print("Enter number of assignments: ");
+        int numAssignments = input.nextInt();
+
+        String[] studentNames = new String[numStudents];
+        double[][] scores = new double[numStudents][numAssignments];
+
+        // Input student data
+        for (int i = 0; i < numStudents; i++) {
+            System.out.print("\nEnter student name: ");
+            studentNames[i] = input.next();
+
+            for (int j = 0; j < numAssignments; j++) {
+                System.out.print("Enter score for assignment " + (j + 1) + ": ");
+                scores[i][j] = input.nextDouble();
+            }
+        }
+
+        System.out.println("\nSTUDENT GRADE REPORT");
+        System.out.println("---------------------");
+
+        // Process and print results in the loop
+        for (int i = 0; i < numStudents; i++) {
+
+            double total = calculateTotal(scores[i]);
+            double average = calculateAverage(total, numAssignments);
+            char grade = getLetterGrade(average);
+
+            System.out.println("\nName: " + studentNames[i]);
+            System.out.println("Total Score: " + total);
+            System.out.println("Average Score: " + average);
+
+            switch (grade) {
+                case 'A':
+                    System.out.println("Letter Grade: A (Excellent)");
+                    break;
+                case 'B':
+                    System.out.println("Letter Grade: B (Good)");
+                    break;
+                case 'C':
+                    System.out.println("Letter Grade: C (Average)");
+                    break;
+                case 'D':
+                    System.out.println("Letter Grade: D (Below Average)");
+                    break;
+                default:
+                    System.out.println("Letter Grade: F (Failing)");
+            }
+        }
+
+        input.close();
+    }
+
+    // Calculates total score
+    public static double calculateTotal(double[] studentScores) {
+        double sum = 0;
+
+        for (int i = 0; i < studentScores.length; i++) {
+            sum += studentScores[i];
+        }
+
+        return sum;
+    }
+
+    // Calculates average score
+    public static double calculateAverage(double total, int numAssignments) {
+        return total / numAssignments;
+    }
+
+    // Determines letter grade
+    public static char getLetterGrade(double average) {
+
+        if (average >= 90)
+            return 'A';
+        else if (average >= 80)
+            return 'B';
+        else if (average >= 70)
+            return 'C';
+        else if (average >= 60)
+            return 'D';
+        else
+            return 'F';
+    }
+}
